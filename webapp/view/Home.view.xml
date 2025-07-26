@@ -4,82 +4,170 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core">
 
-  <Page id="_IDGenPage1" title="EscapeX Dashboard Panel">
+  <Page id="homepage">
+    <customHeader>
+      <Toolbar design="Solid">
+        <Title text="Procurement Cycle Dashboard" level="H2" class="sapUiTinyMargin"/>
+      </Toolbar>
+    </customHeader>
     <content>
-      <VBox id="_IDGenVBox2" alignItems="Center" justifyContent="Center" class="homeVBox">
+
+      <!-- One flow container: tiles render sequentially, wrap when needed -->
+      <FlexBox
+        id="procurementFlow"
+        direction="Row"
+        wrap="Wrap"
+        justifyContent="Start"
+        alignItems="Start"
+        class="sapUiResponsiveMargin flowContainer">
+
         <items>
-          <!-- Row 1 -->
-          <HBox id="_IDGenHBox" justifyContent="Center" alignItems="Start">
-            <items>
-              <GenericTile id="_IDGenGenericTile" header="SD" subheader="Sales And Distribution" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent1">
-                    <content>
-                      <Text id="_IDGenText" text="Content 1" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
+          <!-- 1 -->
+          <GenericTile
+            id="tileRequisition"
+            header="Requirement Identification"
+            subheader="Create Purchase Request"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://cart" size="3rem" color="#0070f3"/>
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
 
-              <GenericTile id="_IDGenGenericTile1" header="Tile 2" subheader="Info" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent2">
-                    <content>
-                      <Text id="_IDGenText1" text="Content 2" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
+          <!-- 2 -->
+          <GenericTile
+            id="tileSupplierSearch"
+            header="Supplier Identification"
+            subheader="Find Potential Vendors"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://search" size="3rem" color="#f39c12" />
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
 
-              <GenericTile id="_IDGenGenericTile2" header="Tile 3" subheader="Info" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent3">
-                    <content>
-                      <Text id="_IDGenText2" text="Content 3" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
-            </items>
-          </HBox>
+          <!-- 3 -->
+          <GenericTile
+            id="tileSupplierEvaluation"
+            header="Supplier Evaluation &amp; Selection"
+            subheader="Assess &amp; Select Vendor"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://employee" size="3rem" color="#27ae60"/>
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
 
-          <!-- Row 2 -->
-          <HBox id="_IDGenHBox1" justifyContent="Center" alignItems="Start">
-            <items>
-              <GenericTile id="_IDGenGenericTile3" header="Tile 4" subheader="Info" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent4">
-                    <content>
-                      <Text id="_IDGenText3" text="Content 4" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
+          <!-- 4 -->
+          <GenericTile
+            id="tilePurchaseOrder"
+            header="Purchase Order"
+            subheader="Send Order to Vendor"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://document" size="3rem" color="#0070f3" />
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
 
-              <GenericTile id="_IDGenGenericTile4" header="Tile 5" subheader="Info" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent5">
-                    <content>
-                      <Text id="_IDGenText4" text="Content 5" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
+          <!-- 5 -->
+          <GenericTile
+            id="tileOrderAck"
+            header="Order Acknowledgement"
+            subheader="Vendor Confirms Order"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://accept" size="3rem" color="#f39c12"/>
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
 
-              <GenericTile id="_IDGenGenericTile5" header="Tile 6" subheader="Info" press="onTilePress" class="sapUiSmallMargin">
-                <tileContent>
-                  <TileContent id="_IDGenTileContent6">
-                    <content>
-                      <Text id="_IDGenText5" text="Content 6" />
-                    </content>
-                  </TileContent>
-                </tileContent>
-              </GenericTile>
-            </items>
-          </HBox>
+          <!-- 6 -->
+          <GenericTile
+            id="tileDeliveryInspection"
+            header="Delivery &amp; Inspection"
+            subheader="Goods Receipt &amp; Quality Check"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://shipping-status" size="3rem" color="#d35400"/>
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
+
+          <!-- 7 -->
+          <GenericTile
+            id="tileInvoiceProcessing"
+            header="Invoice Processing"
+            subheader="Verify Vendor Invoice"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://payment-approval" size="3rem" color="#8e44ad"/>
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
+
+          <!-- 8 -->
+          <GenericTile
+            id="tilePaymentProcessing"
+            header="Payment Processing"
+            subheader="Complete Payment to Vendor"
+            press="onTilePress"
+            size="Auto"
+            class="sapUiSmallMargin"
+            frameType="TwoByOne">
+            <tileContent>
+              <TileContent>
+                <content>
+                  <core:Icon src="sap-icon://money-bills" size="3rem" color="#e67e22" />
+                </content>
+              </TileContent>
+            </tileContent>
+          </GenericTile>
         </items>
-      </VBox>
+      </FlexBox>
+
     </content>
   </Page>
 </mvc:View>
-

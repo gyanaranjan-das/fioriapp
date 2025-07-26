@@ -4,7 +4,7 @@
   displayBlock="true"
   xmlns="sap.m">
 
-  <Page id="loginPage" title="Login" showHeader="false">
+  <Page id="loginPage" showHeader="false">
     <content>
       <VBox
         id="loginContainer"
@@ -14,45 +14,40 @@
         width="100%"
         class="loginPageVBox">
 
-        <Panel id="_IDGenPanel"
+        <Panel id="loginPanel"
           width="350px"
           class="loginPanel"
-          headerText="Welcome! Please login">
+          headerText="Welcome Back!">
 
-          <VBox
-            id="_IDGenVBox"
-            justifyContent="SpaceBetween"
-            alignItems="Stretch"
-            class="loginFormVBox"
-            width="100%"
-            renderType="Bare">
+          <VBox class="loginFormVBox" width="100%" renderType="Bare">
 
+            <Image src="images/logo.png" width="80px" class="loginLogo" />
+
+            <Label text="Username" labelFor="usernamelogin" />
             <Input
               id="usernamelogin"
-              placeholder="Username"
-              width="100%"
-              showValueStateMessage="false"
-              valueState="None" />
+              placeholder="Enter username"
+              width="100%" />
 
+            <Label text="Password" labelFor="passwordlogin" />
             <Input
               id="passwordlogin"
-              placeholder="Password"
+              placeholder="Enter password"
               type="Password"
-              width="100%"
-              showValueStateMessage="false"
-              valueState="None" />
+              width="100%" />
+
+            <Link text="Forgot Password?" press=".onForgotPassword" />
 
             <Button
-              id="_IDGenButton1"
               text="Login"
-              press="onLogin"
+              press=".onLogin"
               type="Emphasized"
               width="100%" />
 
             <Button
-              id="_IDGenButton2"
               text="Sign Up"
               press=".onNavigateToSignup"
+              type="Emphasized"
               width="100%" />
 
           </VBox>
@@ -61,4 +56,3 @@
     </content>
   </Page>
 </mvc:View>
-
