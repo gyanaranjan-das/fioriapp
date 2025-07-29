@@ -1,0 +1,182 @@
+<mvc:View
+  controllerName="fioriapp.controller.Requisition"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form">
+
+  <Page id="requisitionPage" title="Requirement Identification" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+      <VBox id="requisitionContainer" class="sapUiResponsiveContentPadding">
+        
+        <!-- Create New Requisition -->
+        <Panel id="createRequisitionPanel" headerText="Create New Purchase Requisition" class="sapUiResponsiveMargin">
+          <content>
+            <form:SimpleForm
+              id="requisitionForm"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              labelSpanXL="4"
+              labelSpanL="4"
+              labelSpanM="4"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="0"
+              emptySpanL="0"
+              emptySpanM="0"
+              emptySpanS="0"
+              singleContainerFullSize="false">
+              
+              <form:content>
+                <Label id="reqTitleLabel" text="Requisition Title" required="true"/>
+                <Input id="reqTitleInput" value="{requisition>/title}" placeholder="Enter requisition title"/>
+                
+                <Label id="reqDeptLabel" text="Department" required="true"/>
+                <Select id="reqDeptSelect" selectedKey="{requisition>/department}" items="{departments>/}">
+                  <core:Item id="reqDeptItem" key="{departments>key}" text="{departments>name}"/>
+                </Select>
+                
+                <Label id="reqPriorityLabel" text="Priority" required="true"/>
+                <Select id="reqPrioritySelect" selectedKey="{requisition>/priority}" items="{priorities>/}">
+                  <core:Item id="reqPriorityItem" key="{priorities>key}" text="{priorities>name}"/>
+                </Select>
+                
+                <Label id="reqDateLabel" text="Required Date" required="true"/>
+                <DatePicker id="reqDatePicker" value="{requisition>/requiredDate}" displayFormat="dd/MM/yyyy"/>
+                
+                <Label id="reqBudgetLabel" text="Budget" required="true"/>
+                <Input id="reqBudgetInput" value="{requisition>/budget}" type="Number" placeholder="Enter budget amount"/>
+                
+                <Label id="reqDescLabel" text="Description" required="true"/>
+                <TextArea id="reqDescTextArea" value="{requisition>/description}" rows="4" placeholder="Describe the requirement"/>
+              </form:content>
+            </form:SimpleForm>
+            
+            <Toolbar id="reqActionToolbar" class="sapUiMediumMarginTop">
+              <ToolbarSpacer id="reqActionToolbarSpacer"/>
+              <Button id="reqSaveDraftButton" text="Save Draft" press="onSaveDraft" type="Emphasized"/>
+              <Button id="reqSubmitApprovalButton" text="Submit for Approval" press="onSubmitApproval" type="Accept"/>
+            </Toolbar>
+          </content>
+        </Panel>
+
+        <!-- Item Details -->
+        <Panel id="reqItemDetailsPanel" headerText="Item Details" class="sapUiResponsiveMargin">
+          <content>
+            <Table id="reqItemsTable" items="{requisition>/items}" class="sapUiMediumMargin">
+              <headerToolbar>
+                <Toolbar id="reqItemsToolbar">
+                  <Title id="reqItemsTitle" text="Items" level="H3"/>
+                  <ToolbarSpacer id="reqItemsToolbarSpacer"/>
+                  <Button id="reqAddItemButton" icon="sap-icon://add" text="Add Item" press="onAddItem" type="Emphasized"/>
+                </Toolbar>
+              </headerToolbar>
+              
+              <columns>
+                <Column id="reqItemNameColumn">
+                  <Text id="reqItemNameText" text="Item Name"/>
+                </Column>
+                <Column id="reqQuantityColumn">
+                  <Text id="reqQuantityText" text="Quantity"/>
+                </Column>
+                <Column id="reqUnitPriceColumn">
+                  <Text id="reqUnitPriceText" text="Unit Price"/>
+                </Column>
+                <Column id="reqTotalColumn">
+                  <Text id="reqTotalText" text="Total"/>
+                </Column>
+                <Column id="reqActionsColumn">
+                  <Text id="reqActionsText" text="Actions"/>
+                </Column>
+              </columns>
+              
+              <items>
+                <ColumnListItem id="reqItemRow">
+                  <cells>
+                    <Input id="reqItemNameInput" value="{requisition>name}" placeholder="Item name"/>
+                    <Input id="reqQuantityInput" value="{requisition>quantity}" type="Number" placeholder="Qty"/>
+                    <Input id="reqUnitPriceInput" value="{requisition>unitPrice}" type="Number" placeholder="Price"/>
+                    <Text id="reqItemTotalText" text="{requisition>total}"/>
+                    <Button id="reqDeleteItemButton" icon="sap-icon://delete" press="onDeleteItem" type="Transparent"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+
+        <!-- Approval Workflow -->
+        <Panel id="reqApprovalPanel" headerText="Approval Workflow" class="sapUiResponsiveMargin">
+          <content>
+            <l:Grid id="reqApprovalGrid" defaultSpan="XL3 L3 M6 S12" class="sapUiMediumMargin">
+              <l:content>
+                <GenericTile
+                  id="reqDeptHeadTile"
+                  header="Department Head"
+                  subheader="Pending Approval"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="reqDeptHeadContent">
+                      <content>
+                        <core:Icon id="reqDeptHeadIcon" src="sap-icon://employee" size="2rem" color="#0070f3"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+                
+                <GenericTile
+                  id="reqProcManagerTile"
+                  header="Procurement Manager"
+                  subheader="Not Started"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="reqProcManagerContent">
+                      <content>
+                        <core:Icon id="reqProcManagerIcon" src="sap-icon://employee" size="2rem" color="#cccccc"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+                
+                <GenericTile
+                  id="reqFinanceManagerTile"
+                  header="Finance Manager"
+                  subheader="Not Started"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="reqFinanceManagerContent">
+                      <content>
+                        <core:Icon id="reqFinanceManagerIcon" src="sap-icon://employee" size="2rem" color="#cccccc"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+                
+                <GenericTile
+                  id="reqFinalApprovalTile"
+                  header="Final Approval"
+                  subheader="Not Started"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="reqFinalApprovalContent">
+                      <content>
+                        <core:Icon id="reqFinalApprovalIcon" src="sap-icon://accept" size="2rem" color="#cccccc"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+              </l:content>
+            </l:Grid>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View> 

@@ -1,0 +1,114 @@
+<mvc:View
+  controllerName="fioriapp.controller.Login"
+  xmlns:mvc="sap.ui.core.mvc"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Page id="loginPage" showHeader="false">
+    <content>
+      <VBox
+        justifyContent="Center"
+        alignItems="Center"
+        height="100%"
+        width="100%"
+        class="loginPageVBox">
+
+        <Panel
+          width="400px"
+          class="loginPanel">
+          
+          <content>
+            <VBox class="sapUiMediumMargin" alignItems="Center">
+              
+              <!-- Logo/Brand Section -->
+              <core:Icon 
+                src="sap-icon://building" 
+                size="4rem" 
+                color="#0070f3"
+                class="sapUiMediumMarginBottom"/>
+              
+              <Title 
+                text="Procurement Portal" 
+                level="H2" 
+                class="sapUiMediumMarginBottom"
+                textAlign="Center"/>
+              
+              <Text 
+                text="Sign in to your account" 
+                class="sapUiSmallMarginBottom"
+                textAlign="Center"/>
+
+              <!-- Login Form -->
+              <VBox width="100%" class="sapUiMediumMarginTop">
+                
+                <Label text="Username" labelFor="usernamelogin" class="sapUiTinyMarginBottom"/>
+                <Input
+                  id="usernamelogin"
+                  placeholder="Enter your username"
+                  width="100%"
+                  value="{login>/username}"
+                  liveChange="onUsernameChange"
+                  submit="onLogin"
+                  class="sapUiSmallMarginBottom"/>
+
+                <Label text="Password" labelFor="passwordlogin" class="sapUiTinyMarginBottom"/>
+                <Input
+                  id="passwordlogin"
+                  placeholder="Enter your password"
+                  type="Password"
+                  width="100%"
+                  value="{login>/password}"
+                  liveChange="onPasswordChange"
+                  submit="onLogin"
+                  class="sapUiSmallMarginBottom"/>
+
+                <!-- Demo Credentials Info -->
+                <MessageStrip 
+                  text="Demo credentials: admin/admin, user/user, manager/manager, demo/demo"
+                  type="Information"
+                  class="sapUiSmallMarginBottom"/>
+
+                <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                  <CheckBox text="Remember me" selected="{login>/rememberMe}"/>
+                  <Link text="Forgot Password?" press="onForgotPassword"/>
+                </HBox>
+
+                <Button
+                  id="loginButton"
+                  text="Sign In"
+                  press="onLogin"
+                  type="Emphasized"
+                  width="100%"
+                  enabled="{= !${login>/isLoading}}"
+                  class="sapUiMediumMarginTop"/>
+
+                <Button
+                  text="{= ${login>/isLoading} ? 'Signing In...' : 'Create Account'}"
+                  press="onNavigateToSignup"
+                  type="Transparent"
+                  width="100%"
+                  enabled="{= !${login>/isLoading}}"
+                  class="sapUiSmallMarginTop"/>
+
+              </VBox>
+            </VBox>
+          </content>
+        </Panel>
+
+        <!-- Footer -->
+        <VBox alignItems="Center" class="sapUiLargeMarginTop">
+          <Text text="© 2024 Procurement Portal. All rights reserved." class="sapUiTinyText"/>
+          <HBox class="sapUiTinyMarginTop">
+            <Link text="Privacy Policy" class="sapUiTinyMarginEnd"/>
+            <Text text="•" class="sapUiTinyMarginEnd"/>
+            <Link text="Terms of Service" class="sapUiTinyMarginEnd"/>
+            <Text text="•" class="sapUiTinyMarginEnd"/>
+            <Link text="Support"/>
+          </HBox>
+        </VBox>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

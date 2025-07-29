@@ -1,0 +1,157 @@
+<mvc:View
+  controllerName="fioriapp.controller.PurchaseOrder"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form">
+
+  <Page id="purchaseOrderPage" title="Purchase Order Management" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+      <VBox id="purchaseOrderContainer" class="sapUiResponsiveContentPadding">
+        
+        <!-- Create Purchase Order -->
+        <Panel id="createOrderPanel" headerText="Create Purchase Order" class="sapUiResponsiveMargin">
+          <content>
+            <form:SimpleForm
+              id="orderForm"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              labelSpanXL="4"
+              labelSpanL="4"
+              labelSpanM="4"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="0"
+              emptySpanL="0"
+              emptySpanM="0"
+              emptySpanS="0"
+              singleContainerFullSize="false">
+              
+              <form:content>
+                <Label id="orderNumberLabel" text="Order Number"/>
+                <Text id="orderNumberText" text="{order>/orderNumber}"/>
+                
+                <Label id="supplierLabel" text="Selected Supplier" required="true"/>
+                <Input id="supplierInput" value="{order>/supplier}" enabled="false"/>
+                
+                <Label id="orderDateLabel" text="Order Date" required="true"/>
+                <DatePicker id="orderDatePicker" value="{order>/orderDate}" displayFormat="dd/MM/yyyy"/>
+                
+                <Label id="deliveryDateLabel" text="Expected Delivery Date" required="true"/>
+                <DatePicker id="deliveryDatePicker" value="{order>/deliveryDate}" displayFormat="dd/MM/yyyy"/>
+                
+                <Label id="paymentTermsLabel" text="Payment Terms" required="true"/>
+                <Select id="paymentTermsSelect" selectedKey="{order>/paymentTerms}" items="{paymentTerms>/}">
+                  <core:Item id="paymentTermsItem" key="{paymentTerms>key}" text="{paymentTerms>name}"/>
+                </Select>
+                
+                <Label id="shippingAddressLabel" text="Shipping Address" required="true"/>
+                <TextArea id="shippingAddressText" value="{order>/shippingAddress}" rows="3"/>
+              </form:content>
+            </form:SimpleForm>
+          </content>
+        </Panel>
+
+        <!-- Order Items -->
+        <Panel id="orderItemsPanel" headerText="Order Items" class="sapUiResponsiveMargin">
+          <content>
+            <Table id="orderItemsTable" items="{order>/items}" class="sapUiMediumMargin">
+              <headerToolbar>
+                <Toolbar id="itemsToolbar">
+                  <Title id="itemsTitle" text="Items" level="H3"/>
+                  <ToolbarSpacer id="itemsToolbarSpacer"/>
+                  <Button id="addItemButton" icon="sap-icon://add" text="Add Item" press="onAddOrderItem" type="Emphasized"/>
+                </Toolbar>
+              </headerToolbar>
+              
+              <columns>
+                <Column id="itemNameColumn">
+                  <Text id="itemNameText" text="Item Name"/>
+                </Column>
+                <Column id="itemDescriptionColumn">
+                  <Text id="itemDescriptionText" text="Description"/>
+                </Column>
+                <Column id="quantityColumn">
+                  <Text id="quantityText" text="Quantity"/>
+                </Column>
+                <Column id="unitPriceColumn">
+                  <Text id="unitPriceText" text="Unit Price"/>
+                </Column>
+                <Column id="totalColumn">
+                  <Text id="totalText" text="Total"/>
+                </Column>
+                <Column id="actionsColumn">
+                  <Text id="actionsText" text="Actions"/>
+                </Column>
+              </columns>
+              
+              <items>
+                <ColumnListItem id="orderItem">
+                  <cells>
+                    <Input id="itemNameInput" value="{order>name}" placeholder="Item name"/>
+                    <TextArea id="itemDescriptionText" value="{order>description}" rows="2" placeholder="Description"/>
+                    <Input id="quantityInput" value="{order>quantity}" type="Number" placeholder="Qty"/>
+                    <Input id="unitPriceInput" value="{order>unitPrice}" type="Number" placeholder="Price"/>
+                    <Text id="itemTotalText" text="{order>total}"/>
+                    <Button id="deleteItemButton" icon="sap-icon://delete" press="onDeleteOrderItem" type="Transparent"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+
+        <!-- Order Summary -->
+        <Panel id="orderSummaryPanel" headerText="Order Summary" class="sapUiResponsiveMargin">
+          <content>
+            <l:Grid id="summaryGrid" defaultSpan="XL6 L6 M12 S12" class="sapUiMediumMargin">
+              <l:content>
+                <VBox id="subtotalBox" class="sapUiTinyMargin">
+                  <HBox id="subtotalRow" justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text id="subtotalLabel" text="Subtotal:"/>
+                    <Text id="subtotalValue" text="{order>/subtotal}"/>
+                  </HBox>
+                  <HBox id="taxRow" justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text id="taxLabel" text="Tax:"/>
+                    <Text id="taxValue" text="{order>/tax}"/>
+                  </HBox>
+                  <HBox id="shippingRow" justifyContent="SpaceBetween" class="sapUiTinyMarginBottom">
+                    <Text id="shippingLabel" text="Shipping:"/>
+                    <Text id="shippingValue" text="{order>/shipping}"/>
+                  </HBox>
+                  <HBox id="totalRow" justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+                    <Text id="totalLabel" text="Total:" class="sapUiTinyMarginEnd"/>
+                    <Text id="totalValue" text="{order>/total}" class="sapUiTinyMarginStart"/>
+                  </HBox>
+                </VBox>
+                
+                <VBox id="orderStatusBox" class="sapUiTinyMargin">
+                  <Text id="statusLabel" text="Order Status:" class="sapUiTinyMarginBottom"/>
+                  <ObjectStatus id="orderStatus" text="{order>/status}" state="{order>/statusState}"/>
+                  
+                  <Text id="approvalLabel" text="Approval Status:" class="sapUiTinyMarginTop sapUiTinyMarginBottom"/>
+                  <ObjectStatus id="approvalStatus" text="{order>/approvalStatus}" state="{order>/approvalState}"/>
+                </VBox>
+              </l:content>
+            </l:Grid>
+          </content>
+        </Panel>
+
+        <!-- Action Buttons -->
+        <Panel id="actionPanel" class="sapUiResponsiveMargin">
+          <content>
+            <Toolbar id="actionToolbar" class="sapUiMediumMargin">
+              <ToolbarSpacer id="actionToolbarSpacer"/>
+              <Button id="saveDraftButton" text="Save Draft" press="onSaveDraft" type="Emphasized"/>
+              <Button id="sendToSupplierButton" text="Send to Supplier" press="onSendToSupplier" type="Accept"/>
+              <Button id="printOrderButton" text="Print Order" press="onPrintOrder" type="Transparent"/>
+            </Toolbar>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View> 

@@ -1,0 +1,119 @@
+<mvc:View
+  controllerName="fioriapp.controller.SupplierSearch"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form">
+
+  <Page id="supplierSearchPage" title="Supplier Identification" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+      <VBox id="supplierSearchContainer" class="sapUiResponsiveContentPadding">
+        
+        <!-- Search Criteria -->
+        <Panel id="searchCriteriaPanel" headerText="Search Criteria" class="sapUiResponsiveMargin">
+          <content>
+            <form:SimpleForm
+              id="searchForm"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              labelSpanXL="4"
+              labelSpanL="4"
+              labelSpanM="4"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="0"
+              emptySpanL="0"
+              emptySpanM="0"
+              emptySpanS="0"
+              singleContainerFullSize="false">
+              
+              <form:content>
+                <Label id="searchCategoryLabel" text="Category" required="true"/>
+                <Select id="searchCategorySelect" selectedKey="{search>/category}" items="{categories>/}">
+                  <core:Item id="searchCategoryItem" key="{categories>key}" text="{categories>name}"/>
+                </Select>
+                
+                <Label id="searchLocationLabel" text="Location" required="true"/>
+                <Select id="searchLocationSelect" selectedKey="{search>/location}" items="{locations>/}">
+                  <core:Item id="searchLocationItem" key="{locations>key}" text="{locations>name}"/>
+                </Select>
+                
+                <Label id="searchBudgetLabel" text="Budget Range"/>
+                <Input id="searchBudgetInput" value="{search>/budget}" type="Number" placeholder="Enter budget"/>
+                
+                <Label id="searchDeliveryLabel" text="Delivery Time"/>
+                <Select id="searchDeliverySelect" selectedKey="{search>/deliveryTime}" items="{deliveryTimes>/}">
+                  <core:Item id="searchDeliveryItem" key="{deliveryTimes>key}" text="{deliveryTimes>name}"/>
+                </Select>
+              </form:content>
+            </form:SimpleForm>
+            
+            <Toolbar id="searchToolbar" class="sapUiMediumMarginTop">
+              <ToolbarSpacer id="searchToolbarSpacer"/>
+              <Button id="searchButton" text="Search Suppliers" press="onSearchSuppliers" type="Emphasized" icon="sap-icon://search"/>
+              <Button id="clearButton" text="Clear" press="onClearSearch" type="Transparent"/>
+            </Toolbar>
+          </content>
+        </Panel>
+
+        <!-- Supplier Results -->
+        <Panel id="supplierResultsPanel" headerText="Potential Suppliers" class="sapUiResponsiveMargin">
+          <content>
+            <Table id="suppliersTable" items="{suppliers>/}" class="sapUiMediumMargin">
+              <headerToolbar>
+                <Toolbar id="suppliersToolbar">
+                  <Title id="suppliersTitle" text="Suppliers" level="H3"/>
+                  <ToolbarSpacer id="suppliersToolbarSpacer"/>
+                  <Button id="compareButton" icon="sap-icon://compare" text="Compare Selected" press="onCompareSuppliers" type="Emphasized"/>
+                </Toolbar>
+              </headerToolbar>
+              
+              <columns>
+                <Column id="supplierNameColumn">
+                  <Text id="supplierNameText" text="Supplier Name"/>
+                </Column>
+                <Column id="supplierRatingColumn">
+                  <Text id="supplierRatingText" text="Rating"/>
+                </Column>
+                <Column id="supplierPriceColumn">
+                  <Text id="supplierPriceText" text="Price Range"/>
+                </Column>
+                <Column id="supplierDeliveryColumn">
+                  <Text id="supplierDeliveryText" text="Delivery Time"/>
+                </Column>
+                <Column id="supplierLocationColumn">
+                  <Text id="supplierLocationText" text="Location"/>
+                </Column>
+                <Column id="supplierActionsColumn">
+                  <Text id="supplierActionsText" text="Actions"/>
+                </Column>
+              </columns>
+              
+              <items>
+                <ColumnListItem id="supplierItem">
+                  <cells>
+                    <VBox id="supplierInfo">
+                      <Text id="supplierName" text="{suppliers>name}" class="sapUiTinyMarginBottom"/>
+                      <Text id="supplierType" text="{suppliers>type}" class="sapUiTinyMarginBottom"/>
+                    </VBox>
+                    <ObjectStatus id="ratingStatus" text="{suppliers>rating}" state="{suppliers>ratingState}"/>
+                    <Text id="priceRange" text="{suppliers>priceRange}"/>
+                    <Text id="deliveryTime" text="{suppliers>deliveryTime}"/>
+                    <Text id="supplierLocation" text="{suppliers>location}"/>
+                    <HBox id="actionButtons">
+                      <Button id="viewDetailsButton" icon="sap-icon://detail-view" press="onViewSupplierDetails" type="Transparent" tooltip="View Details"/>
+                      <Button id="selectButton" icon="sap-icon://accept" press="onSelectSupplier" type="Accept" tooltip="Select Supplier"/>
+                    </HBox>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View> 

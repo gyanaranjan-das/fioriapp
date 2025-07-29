@@ -1,0 +1,186 @@
+<mvc:View
+  controllerName="fioriapp.controller.InvoiceProcessing"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:l="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form">
+
+  <Page id="invoiceProcessingPage" title="Invoice Processing" showNavButton="true" navButtonPress="onNavBack">
+    <content>
+      <VBox id="invoiceContainer" class="sapUiResponsiveContentPadding">
+        
+        <!-- Invoice Details -->
+        <Panel id="invoiceDetailsPanel" headerText="Invoice Details" class="sapUiResponsiveMargin">
+          <content>
+            <form:SimpleForm
+              id="invoiceForm"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              labelSpanXL="4"
+              labelSpanL="4"
+              labelSpanM="4"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="0"
+              emptySpanL="0"
+              emptySpanM="0"
+              emptySpanS="0"
+              singleContainerFullSize="false">
+              
+              <form:content>
+                <Label id="invoiceNumberLabel" text="Invoice Number" required="true"/>
+                <Input id="invoiceNumberInput" value="{invoice>/invoiceNumber}" placeholder="Enter invoice number"/>
+                
+                <Label id="invoiceSupplierLabel" text="Supplier" required="true"/>
+                <Input id="invoiceSupplierInput" value="{invoice>/supplier}" enabled="false"/>
+                
+                <Label id="invoiceDateLabel" text="Invoice Date" required="true"/>
+                <DatePicker id="invoiceDatePicker" value="{invoice>/invoiceDate}" displayFormat="dd/MM/yyyy"/>
+                
+                <Label id="dueDateLabel" text="Due Date" required="true"/>
+                <DatePicker id="dueDatePicker" value="{invoice>/dueDate}" displayFormat="dd/MM/yyyy"/>
+                
+                <Label id="invoiceAmountLabel" text="Invoice Amount" required="true"/>
+                <Input id="invoiceAmountInput" value="{invoice>/amount}" type="Number" placeholder="Enter amount"/>
+                
+                <Label id="currencyLabel" text="Currency" required="true"/>
+                <Select id="currencySelect" selectedKey="{invoice>/currency}" items="{currencies>/}">
+                  <core:Item id="currencyItem" key="{currencies>key}" text="{currencies>name}"/>
+                </Select>
+              </form:content>
+            </form:SimpleForm>
+          </content>
+        </Panel>
+
+        <!-- Invoice Items -->
+        <Panel id="invoiceItemsPanel" headerText="Invoice Items" class="sapUiResponsiveMargin">
+          <content>
+            <Table id="invoiceItemsTable" items="{invoice>/items}" class="sapUiMediumMargin">
+              <headerToolbar>
+                <Toolbar id="invoiceItemsToolbar">
+                  <Title id="invoiceItemsTitle" text="Items" level="H3"/>
+                  <ToolbarSpacer id="invoiceItemsToolbarSpacer"/>
+                  <Button id="addInvoiceItemButton" icon="sap-icon://add" text="Add Item" press="onAddInvoiceItem" type="Emphasized"/>
+                </Toolbar>
+              </headerToolbar>
+              
+              <columns>
+                <Column id="invoiceItemNameColumn">
+                  <Text id="invoiceItemNameText" text="Item Name"/>
+                </Column>
+                <Column id="invoiceItemDescriptionColumn">
+                  <Text id="invoiceItemDescriptionText" text="Description"/>
+                </Column>
+                <Column id="invoiceQuantityColumn">
+                  <Text id="invoiceQuantityText" text="Quantity"/>
+                </Column>
+                <Column id="invoiceUnitPriceColumn">
+                  <Text id="invoiceUnitPriceText" text="Unit Price"/>
+                </Column>
+                <Column id="invoiceTotalColumn">
+                  <Text id="invoiceTotalText" text="Total"/>
+                </Column>
+                <Column id="invoiceMatchColumn">
+                  <Text id="invoiceMatchText" text="Match Status"/>
+                </Column>
+                <Column id="invoiceActionsColumn">
+                  <Text id="invoiceActionsText" text="Actions"/>
+                </Column>
+              </columns>
+              
+              <items>
+                <ColumnListItem id="invoiceItem">
+                  <cells>
+                    <Input id="invoiceItemNameInput" value="{invoice>name}" placeholder="Item name"/>
+                    <TextArea id="invoiceItemDescriptionText" value="{invoice>description}" rows="2" placeholder="Description"/>
+                    <Input id="invoiceQuantityInput" value="{invoice>quantity}" type="Number" placeholder="Qty"/>
+                    <Input id="invoiceUnitPriceInput" value="{invoice>unitPrice}" type="Number" placeholder="Price"/>
+                    <Text id="invoiceItemTotalText" text="{invoice>total}"/>
+                    <ObjectStatus id="invoiceMatchStatus" text="{invoice>matchStatus}" state="{invoice>matchState}"/>
+                    <Button id="deleteInvoiceItemButton" icon="sap-icon://delete" press="onDeleteInvoiceItem" type="Transparent"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+
+        <!-- Three-Way Matching -->
+        <Panel id="matchingPanel" headerText="Three-Way Matching" class="sapUiResponsiveMargin">
+          <content>
+            <l:Grid id="matchingGrid" defaultSpan="XL4 L4 M6 S12" class="sapUiMediumMargin">
+              <l:content>
+                <GenericTile
+                  id="poMatchTile"
+                  header="Purchase Order"
+                  subheader="Order Details"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="poMatchContent">
+                      <content>
+                        <core:Icon id="poMatchIcon" src="sap-icon://document" size="2rem" color="#0070f3"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+                
+                <GenericTile
+                  id="invoiceMatchTile"
+                  header="Invoice"
+                  subheader="Invoice Details"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="invoiceMatchContent">
+                      <content>
+                        <core:Icon id="invoiceMatchIcon" src="sap-icon://payment-approval" size="2rem" color="#f39c12"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+                
+                <GenericTile
+                  id="receiptMatchTile"
+                  header="Goods Receipt"
+                  subheader="Receipt Details"
+                  frameType="TwoByOne"
+                  class="sapUiTinyMargin">
+                  <tileContent>
+                    <TileContent id="receiptMatchContent">
+                      <content>
+                        <core:Icon id="receiptMatchIcon" src="sap-icon://shipping-status" size="2rem" color="#27ae60"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+              </l:content>
+            </l:Grid>
+            
+            <VBox id="matchingSummary" class="sapUiMediumMarginTop">
+              <HBox id="matchResultRow" justifyContent="Center" class="sapUiTinyMarginBottom">
+                <ObjectStatus id="matchResult" text="{matching>/result}" state="{matching>/resultState}"/>
+              </HBox>
+              <Text id="matchMessage" text="{matching>/message}" class="sapUiTinyMargin"/>
+            </VBox>
+          </content>
+        </Panel>
+
+        <!-- Action Buttons -->
+        <Panel id="invoiceActionPanel" class="sapUiResponsiveMargin">
+          <content>
+            <Toolbar id="invoiceActionToolbar" class="sapUiMediumMargin">
+              <ToolbarSpacer id="invoiceActionToolbarSpacer"/>
+              <Button id="rejectButton" text="Reject Invoice" press="onRejectInvoice" type="Reject"/>
+              <Button id="approveButton" text="Approve Invoice" press="onApproveInvoice" type="Accept"/>
+              <Button id="holdButton" text="Hold for Review" press="onHoldInvoice" type="Emphasized"/>
+            </Toolbar>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View> 

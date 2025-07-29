@@ -1,0 +1,173 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "fioriapp",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.3",
+      "toolsId": "2d663af2-4100-45e2-975f-6e88dfa599e9"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/here/goes/your/serviceurl/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.138.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "fioriapp.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "App",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "viewPath": "fioriapp.view",
+        "async": true,
+        "bypassed": {
+          "target": "Login"
+        }
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "Login",
+          "target": "Login"
+        },
+        {
+          "pattern": "Signup",
+          "name": "Signup",
+          "target": "Signup"
+        },
+        {
+          "pattern": "Home",
+          "name": "Home",
+          "target": "Home"
+        },
+        {
+          "pattern": "Requisition",
+          "name": "Requisition",
+          "target": "Requisition"
+        },
+        {
+          "pattern": "SupplierSearch",
+          "name": "SupplierSearch",
+          "target": "SupplierSearch"
+        },
+        {
+          "pattern": "PurchaseOrder",
+          "name": "PurchaseOrder",
+          "target": "PurchaseOrder"
+        },
+        {
+          "pattern": "InvoiceProcessing",
+          "name": "InvoiceProcessing",
+          "target": "InvoiceProcessing"
+        }
+      ],
+      "targets": {
+        "Login": {
+          "viewName": "Login",
+          "viewLevel": 1
+        },
+        "Signup": {
+          "viewName": "Signup",
+          "viewLevel": 2
+        },
+        "Home": {
+          "viewName": "Home",
+          "viewLevel": 3
+        },
+        "Requisition": {
+          "viewName": "Requisition",
+          "viewLevel": 4
+        },
+        "SupplierSearch": {
+          "viewName": "SupplierSearch",
+          "viewLevel": 4
+        },
+        "PurchaseOrder": {
+          "viewName": "PurchaseOrder",
+          "viewLevel": 4
+        },
+        "InvoiceProcessing": {
+          "viewName": "InvoiceProcessing",
+          "viewLevel": 4
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "fioriapp.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}
