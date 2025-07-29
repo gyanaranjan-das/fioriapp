@@ -1,0 +1,281 @@
+<mvc:View
+  controllerName="fioriapp.controller.Home"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.f">
+
+  <Page id="homepage">
+    <customHeader>
+      <Toolbar design="Solid" class="sapUiResponsiveContentPadding">
+        <Title text="Procurement Cycle Dashboard" level="H2" class="sapUiTinyMargin"/>
+        <ToolbarSpacer />
+        <Text text="Welcome, {dashboard>/user/name}" class="sapUiMediumMarginEnd"/>
+        <Button icon="sap-icon://person-placeholder" press="onUserMenuPress" type="Transparent"/>
+        <Button icon="sap-icon://log" press="onLogout" type="Transparent" tooltip="Logout"/>
+      </Toolbar>
+    </customHeader>
+    
+    <content>
+      <VBox class="sapUiResponsiveContentPadding">
+        
+        <!-- Key Metrics Section -->
+        <Panel headerText="Key Metrics" class="sapUiResponsiveMargin">
+          <content>
+            <f:GridContainer class="sapUiMediumMargin">
+              <f:GridContainerSettings rowSize="5rem" columnSize="5rem" gap="1rem" />
+              <GenericTile class="sapUiTinyMargin" frameType="OneByOne">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="{dashboard>/stats/totalOrders}" withMargin="false" size="M" indicator="Up" valueColor="Good"/>
+                    </content>
+                    <footer>
+                      <Text text="Total Orders"/>
+                    </footer>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+              
+              <GenericTile class="sapUiTinyMargin" frameType="OneByOne">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="{dashboard>/stats/pendingApprovals}" withMargin="false" size="M" indicator="None" valueColor="Critical"/>
+                    </content>
+                    <footer>
+                      <Text text="Pending Approvals"/>
+                    </footer>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+              
+              <GenericTile class="sapUiTinyMargin" frameType="OneByOne">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="{dashboard>/stats/activeSuppliers}" withMargin="false" size="M" indicator="Up" valueColor="Good"/>
+                    </content>
+                    <footer>
+                      <Text text="Active Suppliers"/>
+                    </footer>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+              
+              <GenericTile class="sapUiTinyMargin" frameType="OneByOne">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="{dashboard>/stats/monthlySpend}" withMargin="false" size="M" indicator="Up" valueColor="Neutral"/>
+                    </content>
+                    <footer>
+                      <Text text="Monthly Spend"/>
+                    </footer>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+            </f:GridContainer>
+          </content>
+        </Panel>
+
+        <!-- Procurement Process Flow -->
+        <Panel headerText="Procurement Process Flow" class="sapUiResponsiveMargin">
+          <content>
+            <FlexBox
+              direction="Row"
+              wrap="Wrap"
+              justifyContent="Start"
+              alignItems="Start"
+              class="sapUiMediumMargin">
+
+              <items>
+                <!-- 1 -->
+                <GenericTile
+                  id="tileRequisition"
+                  header="Requirement Identification"
+                  subheader="Create Purchase Request"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://cart" size="3rem" color="#0070f3"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 2 -->
+                <GenericTile
+                  id="tileSupplierSearch"
+                  header="Supplier Identification"
+                  subheader="Find Potential Vendors"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://search" size="3rem" color="#f39c12" />
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 3 -->
+                <GenericTile
+                  id="tileSupplierEvaluation"
+                  header="Supplier Evaluation"
+                  subheader="Assess & Select Vendor"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://employee" size="3rem" color="#27ae60"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 4 -->
+                <GenericTile
+                  id="tilePurchaseOrder"
+                  header="Purchase Order"
+                  subheader="Send Order to Vendor"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://document" size="3rem" color="#0070f3" />
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 5 -->
+                <GenericTile
+                  id="tileOrderAck"
+                  header="Order Acknowledgement"
+                  subheader="Vendor Confirms Order"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://accept" size="3rem" color="#f39c12"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 6 -->
+                <GenericTile
+                  id="tileDeliveryInspection"
+                  header="Delivery & Inspection"
+                  subheader="Goods Receipt & Quality Check"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://shipping-status" size="3rem" color="#d35400"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 7 -->
+                <GenericTile
+                  id="tileInvoiceProcessing"
+                  header="Invoice Processing"
+                  subheader="Verify Vendor Invoice"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://payment-approval" size="3rem" color="#8e44ad"/>
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+
+                <!-- 8 -->
+                <GenericTile
+                  id="tilePaymentProcessing"
+                  header="Payment Processing"
+                  subheader="Complete Payment to Vendor"
+                  press="onTilePress"
+                  size="Auto"
+                  class="sapUiSmallMargin procurementTile"
+                  frameType="TwoByOne">
+                  <tileContent>
+                    <TileContent>
+                      <content>
+                        <core:Icon src="sap-icon://money-bills" size="3rem" color="#e67e22" />
+                      </content>
+                    </TileContent>
+                  </tileContent>
+                </GenericTile>
+              </items>
+            </FlexBox>
+          </content>
+        </Panel>
+
+        <!-- Recent Activities -->
+        <Panel headerText="Recent Activities" class="sapUiResponsiveMargin">
+          <content>
+            <Table items="{dashboard>/recentActivities}" class="sapUiMediumMargin">
+              <columns>
+                <Column>
+                  <Text text="Type"/>
+                </Column>
+                <Column>
+                  <Text text="Description"/>
+                </Column>
+                <Column>
+                  <Text text="Status"/>
+                </Column>
+                <Column>
+                  <Text text="Date"/>
+                </Column>
+                <Column>
+                  <Text text="Amount"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{dashboard>type}"/>
+                    <Text text="{dashboard>description}"/>
+                    <ObjectStatus text="{dashboard>status}" 
+                      state="{parts: ['dashboard>status'], formatter: '.formatStatus'}"/>
+                    <Text text="{dashboard>date}"/>
+                    <Text text="{dashboard>amount}"/>
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </content>
+        </Panel>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

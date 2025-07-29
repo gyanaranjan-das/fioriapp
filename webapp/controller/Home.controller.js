@@ -57,17 +57,31 @@ sap.ui.define([
 
             switch(sTileId.split("--")[1]) {
                 case "tileRequisition":
+<<<<<<< HEAD
                     this.getOwnerComponent().getRouter().navTo("Requisition");
                     break;
                 case "tileSupplierSearch":
                     this.getOwnerComponent().getRouter().navTo("SupplierSearch");
+=======
+                    sMessage = "Opening Requirement Identification module...";
+                    this._showProcessDialog("Requirement Identification", "Create and manage purchase requests");
+                    break;
+                case "tileSupplierSearch":
+                    sMessage = "Opening Supplier Search module...";
+                    this._showProcessDialog("Supplier Search", "Find and evaluate potential vendors");
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
                     break;
                 case "tileSupplierEvaluation":
                     sMessage = "Opening Supplier Evaluation module...";
                     this._showProcessDialog("Supplier Evaluation", "Assess vendor capabilities and performance");
                     break;
                 case "tilePurchaseOrder":
+<<<<<<< HEAD
                     this.getOwnerComponent().getRouter().navTo("PurchaseOrder");
+=======
+                    sMessage = "Opening Purchase Order module...";
+                    this._showProcessDialog("Purchase Order", "Create and manage purchase orders");
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
                     break;
                 case "tileOrderAck":
                     sMessage = "Opening Order Acknowledgement module...";
@@ -78,7 +92,12 @@ sap.ui.define([
                     this._showProcessDialog("Delivery & Inspection", "Manage goods receipt and quality checks");
                     break;
                 case "tileInvoiceProcessing":
+<<<<<<< HEAD
                     this.getOwnerComponent().getRouter().navTo("InvoiceProcessing");
+=======
+                    sMessage = "Opening Invoice Processing module...";
+                    this._showProcessDialog("Invoice Processing", "Process and verify vendor invoices");
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
                     break;
                 case "tilePaymentProcessing":
                     sMessage = "Opening Payment Processing module...";
@@ -86,8 +105,14 @@ sap.ui.define([
                     break;
                 default:
                     sMessage = "Module not implemented yet";
+<<<<<<< HEAD
                     MessageToast.show(sMessage);
             }
+=======
+            }
+
+            MessageToast.show(sMessage);
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
         },
 
         _showProcessDialog: function(sTitle, sDescription) {

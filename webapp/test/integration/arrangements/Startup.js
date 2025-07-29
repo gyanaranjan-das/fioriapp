@@ -14,7 +14,11 @@ sap.ui.define([
 			// start the app UI component
 			this.iStartMyUIComponent({
 				componentConfig: {
+<<<<<<< HEAD
 					name: "fioriapp.fioriapp",
+=======
+					name: "fioriapp",
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
 					async: true
 				},
 				hash: oOptions.hash,

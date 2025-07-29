@@ -1,5 +1,6 @@
 {
   "generationParameters": {
+<<<<<<< HEAD
     "generationDate": "Sun Jul 27 2025 12:17:11 GMT+0530 (India Standard Time)",
     "generatorPlatform": "Visual Studio Code",
     "serviceType": "None",
@@ -9,14 +10,31 @@
     "appTitle": "Procura",
     "appDescription": "An SAP Fiori application.",
     "appNamespace": "fioriapp",
+=======
+    "generationDate": "Fri Jul 25 2025 18:22:47 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "File",
+    "metadataFilename": "PACMaterialMaster.edmx",
+    "serviceUrl": "/here/goes/your/serviceurl/",
+    "appName": "fioriapp",
+    "appTitle": "App Title",
+    "appDescription": "An SAP Fiori application.",
+    "appNamespace": "",
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
     "ui5Theme": "sap_horizon",
     "ui5Version": "1.138.1",
     "enableCodeAssist": false,
     "enableEslint": false,
     "enableTypeScript": false,
+<<<<<<< HEAD
     "showMockDataInfo": false,
     "generatorVersion": "1.18.3",
     "template": "Basic",
+=======
+    "showMockDataInfo": true,
+    "generatorVersion": "1.18.3",
+    "template": "Basic V4",
+>>>>>>> dfe6d4c3710caa4f4ac719f2794514941b2a7b7b
     "generatorName": "SAP Fiori Application Generator",
     "entityRelatedConfig": [],
     "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
